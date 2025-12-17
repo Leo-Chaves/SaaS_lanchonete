@@ -24,10 +24,10 @@ public class JwtUtil {
 
     public String generateToken(String email) {
         return Jwts.builder()
-                .setSubject(email)                              // <- funciona na 0.11.x
+                .setSubject(email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
-                .signWith(getKey(), SignatureAlgorithm.HS256)  // <- padrão 0.11.x
+                .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -37,7 +37,7 @@ public class JwtUtil {
 
     public boolean validateToken(String token) {
         try {
-            getClaims(token); // se der erro cai no catch
+            getClaims(token);
             return true;
         } catch (Exception e) {
             return false;
@@ -45,7 +45,7 @@ public class JwtUtil {
     }
 
     private Claims getClaims(String token) {
-        return Jwts.parserBuilder()     // <- 0.11.x usa parserBuilder()
+        return Jwts.parserBuilder()
                 .setSigningKey(getKey())
                 .build()
                 .parseClaimsJws(token)
